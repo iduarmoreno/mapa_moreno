@@ -6,7 +6,7 @@ var map = new ol.Map({
     view: new ol.View({
          // Coordenadas calibradas para Cuartel V - Zona III:
          center: [-6545375.42, -4104600.00], 
-         zoom: 13, 
+         zoom: 14.5, 
          maxZoom: 28, 
          minZoom: 1
     })
