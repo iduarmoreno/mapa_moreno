@@ -12,6 +12,11 @@ var map = new ol.Map({
     })
 });
 
+map.getView().fit(
+    layersList[0].getSource().getExtent(),
+    {padding: [50,50,50,50]}
+);
+
 // El resto de tu código JS (funciones de cursor, popup, etc.) se mantiene igual
 
 
