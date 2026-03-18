@@ -289,24 +289,37 @@ flecha.style.display = "block";
 }
 
 window.addEventListener("load", controlarFlechaMovil);
-/* OCULTAR FLECHA NORTE CUANDO SE ABRE LA LEYENDA EN PC (HOVER) */
+/* OCULTAR FLECHA NORTE CUANDO SE ABRE LA LEYENDA EN PC (CLIC + HOVER) */
 
 function controlarFlechaPC(){
-    // Solo se ejecuta en pantallas más grandes que 768px (PC)
     if (window.innerWidth > 768){
         var flecha = document.getElementById("flecha-norte");
         var panel = document.querySelector(".layer-switcher");
+        var boton = document.querySelector(".layer-switcher button");
 
-        if(!panel || !flecha) return;
+        if(!panel || !flecha || !boton) return;
 
-        // Cuando el mouse entra al panel, se oculta la flecha
+        // 1. Ocultar si pasas el mouse por encima
         panel.addEventListener("mouseenter", function(){
             flecha.style.display = "none";
         });
 
-        // Cuando el mouse sale del panel, reaparece la flecha
+        // 2. Mostrar al quitar el mouse, PERO solo si el panel no está abierto con clic
         panel.addEventListener("mouseleave", function(){
-            flecha.style.display = "block";
+            if(!panel.classList.contains("shown")){
+                flecha.style.display = "block";
+            }
+        });
+
+        // 3. Manejar el clic explícito (Igual que tu lógica en móvil)
+        boton.addEventListener("click", function(){
+            setTimeout(function(){
+                if(panel.classList.contains("shown")){
+                    flecha.style.display = "none";
+                }else{
+                    flecha.style.display = "block";
+                }
+            }, 200);
         });
     }
 }
