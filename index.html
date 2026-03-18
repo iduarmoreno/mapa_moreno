@@ -25,21 +25,17 @@ margin: 0;
 background-color: #ffffff;
 }
 
-/* ==================================================================== */
-/* AGREGAR ESCALA MÉTRICA DE FORMA SEGURA                               */
-/* ==================================================================== */
+/* ESCALA DEL MAPA */
+.ol-scale-line {
+    position: absolute !important;
+    bottom: 20px !important; 
+    right: 20px !important;  
+    left: auto !important;   
+    background: rgba(255, 255, 255, 0.7) !important; 
+    padding: 5px !important;
+    border-radius: 4px !important;
+    z-index: 1000 !important;
 
-var intentarEscala = setInterval(function() {
-    // Verificamos si la variable 'map' ya fue creada por qgis2web
-    if (typeof map !== 'undefined') {
-        clearInterval(intentarEscala); // Detenemos la búsqueda
-        
-        // Agregamos el control de la escala al mapa
-        map.addControl(new ol.control.ScaleLine({ 
-            units: 'metric' 
-        }));
-    }
-}, 50);
 }
 
 /* ... (aquí sigue el resto de tu código, como #titulo-mapa, #logo-institucional, etc.) ... */
