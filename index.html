@@ -289,7 +289,29 @@ flecha.style.display = "block";
 }
 
 window.addEventListener("load", controlarFlechaMovil);
+/* OCULTAR FLECHA NORTE CUANDO SE ABRE LA LEYENDA EN PC (HOVER) */
 
+function controlarFlechaPC(){
+    // Solo se ejecuta en pantallas más grandes que 768px (PC)
+    if (window.innerWidth > 768){
+        var flecha = document.getElementById("flecha-norte");
+        var panel = document.querySelector(".layer-switcher");
+
+        if(!panel || !flecha) return;
+
+        // Cuando el mouse entra al panel, se oculta la flecha
+        panel.addEventListener("mouseenter", function(){
+            flecha.style.display = "none";
+        });
+
+        // Cuando el mouse sale del panel, reaparece la flecha
+        panel.addEventListener("mouseleave", function(){
+            flecha.style.display = "block";
+        });
+    }
+}
+
+window.addEventListener("load", controlarFlechaPC);
 </script>
 
 </body>
