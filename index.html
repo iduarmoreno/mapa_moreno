@@ -400,8 +400,24 @@ function configurarLeyendaSoloClic(){
 
 // Ejecutar cuando termine de cargar el mapa
 window.addEventListener("load", configurarLeyendaSoloClic);
+    /* ... (aquí arriba está tu código de la flecha móvil y el de la leyenda para PC) ... */
 
-</script>
+/* ==================================================================== */
+/* AGREGAR ESCALA MÉTRICA (DESPUÉS DE CARGAR TODO)                      */
+/* ==================================================================== */
+window.addEventListener("load", function() {
+    // Le damos 1 segundo (1000 milisegundos) de margen al mapa
+    setTimeout(function() {
+        if (typeof map !== 'undefined') {
+            map.addControl(new ol.control.ScaleLine({
+                units: 'metric'
+            }));
+        }
+    }, 1000);
+});
 
+</script> 
 </body>
 </html>
+
+
