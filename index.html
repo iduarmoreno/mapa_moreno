@@ -418,34 +418,23 @@ window.addEventListener("load", function() {
         }
     }, 1000);
 });
-/* ... (aquí arriba está tu código de la flecha móvil, la leyenda PC y la lógica de la escala que ya funciona) ... */
-
-
 /* ==================================================================== */
-/* AGREGAR CRÉDITOS DE AUTOR PROFESIONALES (INGLÉS)                     */
+/* AGREGAR CRÉDITOS DE AUTOR AL MAPA (MÉTODO INFALIBLE)                 */
 /* ==================================================================== */
-window.addEventListener("load", function() {
-    // Le damos 500ms al mapa para que cargue los créditos originales
-    setTimeout(function() {
-        // Buscamos la lista de atribuciones original del mapa
-        var atribuciones = document.querySelector(".ol-attribution ul");
-        
-        if (atribuciones) {
-            // Creamos un nuevo elemento de lista
-            var misCreditos = document.createElement("li");
-            
-            // Insertamos tu firma profesional con el título en inglés (Engineer)
-            // Usamos <strong> para que tu nombre resalte un poco más
-            misCreditos.innerHTML = '<strong>Map design & development by Engineer Nelson Pelayo</strong> &middot; ';
-            
-            // Esto inserta tu firma al principio de la lista de créditos (más visible)
-            atribuciones.insertBefore(misCreditos, atribuciones.firstChild);
-        }
-    }, 500); // Pequeño retraso de seguridad
-});
+setInterval(function() {
+    var atribuciones = document.querySelector(".ol-attribution ul");
+    
+    if (atribuciones && !document.getElementById("firma-ingeniero")) {
+        var misCreditos = document.createElement("li");
+        misCreditos.id = "firma-ingeniero"; 
+        misCreditos.innerHTML = '<strong>Map design & development by Engineer Nelson Pelayo</strong> &middot; ';
+        atribuciones.insertBefore(misCreditos, atribuciones.firstChild);
+    }
+}, 500);
 
-</script> 
+</script>
 </body>
 </html>
+
 
 
