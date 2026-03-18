@@ -325,6 +325,45 @@ function controlarFlechaPC(){
 }
 
 window.addEventListener("load", controlarFlechaPC);
+    /* ==================================================================== */
+/* FORZAR LEYENDA CERRADA AL INICIO Y ABRIR SOLO CON CLIC (SOLO PC) */
+/* ==================================================================== */
+
+function configurarLeyendaSoloClic(){
+    var panel = document.querySelector(".layer-switcher");
+    var boton = document.querySelector(".layer-switcher button");
+
+    if(!panel || !boton) return;
+
+    // 1. Obligar a que la leyenda arranque siempre cerrada (remueve la clase que la abre)
+    setTimeout(function() {
+        panel.classList.remove("shown");
+    }, 50);
+
+    // 2. Aplicar el bloqueo de "hover" SOLO si es PC (más de 768px)
+    if (window.innerWidth > 768){
+        
+        // Función destructora para frenar en seco los eventos de mouse del plugin
+        var bloquearHoverNativo = function(e){
+            e.stopImmediatePropagation();
+        };
+
+        // Bloqueamos todos los métodos que usa el plugin para intentar abrirse solo
+        panel.addEventListener("mouseover", bloquearHoverNativo, true);
+        panel.addEventListener("mouseout", bloquearHoverNativo, true);
+        panel.addEventListener("pointerover", bloquearHoverNativo, true);
+        panel.addEventListener("pointerout", bloquearHoverNativo, true);
+
+        // 3. Forzar que el botón sea el único que abra/cierre la leyenda con CLIC
+        boton.addEventListener("click", function(e){
+            e.preventDefault();
+            panel.classList.toggle("shown");
+        });
+    }
+}
+
+// Ejecutar cuando termine de cargar el mapa
+window.addEventListener("load", configurarLeyendaSoloClic);
 </script>
 
 </body>
