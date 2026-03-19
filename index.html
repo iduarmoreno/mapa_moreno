@@ -140,7 +140,46 @@ pointer-events: none;
 background-color: rgba(255,255,255,.4) !important;
 padding: 2px !important;
 }
+/* ==================================================================== */
+        /* BOTÓN DE PANTALLA COMPLETA (ESTILO Y POSICIÓN)                       */
+        /* ==================================================================== */
+        
+        /* Posición debajo del zoom (asumiendo zoom arriba-izquierda) */
+        .ol-full-screen {
+            position: absolute;
+            top: 10px; /* Alineado con el top del zoom típico */
+            left: 10px; /* Alineado al far-left */
+            z-index: 1004; /* Por encima del mapa */
+        }
+        
+        /* Estilo del botón para que parezca control del mapa */
+        .ol-full-screen button {
+            background-color: rgba(255,255,255,0.7) !important;
+            color: #333 !important;
+            border-radius: 4px !important;
+            width: 32px !important;
+            height: 32px !important;
+            font-size: 0 !important; /* Escondemos el texto nativo FS */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
 
+        /* ICONO ESTADO ACHICADO (Flechas hacia afuera -> Entrar FullScreen) */
+        .ol-full-screen button::before {
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            content: "\f065"; /* fa-expand */
+            font-size: 16px !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        /* ICONO ESTADO AGRANDADO (Flechas hacia adentro -> Salir FullScreen) */
+        .ol-full-screen-true button::before {
+            content: "\f066"; /* fa-compress */
+        }
 /* ============================= */
 /* AJUSTES SOLO PARA MOVIL */
 /* ============================= */
