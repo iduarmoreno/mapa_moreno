@@ -126,44 +126,38 @@
         }
 
         /* ==================================================================== */
-        /* CONTROLES GENERALES (ANULAR ESTILOS DE BARRA SUPERIOR)               */
+        /* CONTROLES GENERALES ORIGINALES                                       */
         /* ==================================================================== */
         .ol-control {
-            background: none !important;     
-            border: none !important;         
-            width: auto !important;          
-            height: auto !important;         
-            padding: 0 !important;
-            position: static !important;     
+            background-color: rgba(255,255,255,.4) !important;
+            padding: 2px !important;
+            border-radius: 4px;
         }
 
         /* ==================================================================== */
-        /* BOTÓN DE PANTALLA COMPLETA (ESTILO Y POSICIÓN INDEPENDIENTE)        */
+        /* BOTÓN DE PANTALLA COMPLETA                                           */
         /* ==================================================================== */
         .ol-full-screen {
             position: absolute !important;
             top: 10px !important;
             left: 10px !important;
-            z-index: 1004 !important; 
+            right: auto !important; /* OpenLayers lo pone a la derecha por defecto, lo movemos */
         }
         
         .ol-full-screen button {
             background-color: rgba(255,255,255,0.8) !important; 
             color: #333 !important;
-            border-radius: 4px !important;
-            width: 32px !important;
-            height: 32px !important;
-            font-size: 0 !important; 
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important; 
+            border-radius: 2px !important;
+            width: 30px !important;
+            height: 30px !important;
+            font-size: 0 !important; /* Ocultamos el texto original */
             cursor: pointer;
-            display: block !important;
-            margin: 0 !important;
         }
 
         .ol-full-screen button::before {
             font-family: 'Font Awesome 5 Free';
             font-weight: 900;
-            content: "\f065"; 
+            content: "\f065"; /* Icono expandir */
             font-size: 16px !important;
             display: flex;
             align-items: center;
@@ -172,27 +166,17 @@
         }
 
         .ol-full-screen-true button::before {
-            content: "\f066"; 
+            content: "\f066"; /* Icono contraer */
         }
         
         /* ==================================================================== */
-        /* CONTROLES DE ZOOM FLOTANTES                                          */
+        /* BOTONES DE ZOOM                                                      */
         /* ==================================================================== */
+        /* Empujamos el zoom hacia abajo para que quede debajo del FullScreen */
         .ol-zoom {
             position: absolute !important;
-            top: 10px !important;
-            left: 45px !important; 
-            z-index: 1004 !important;
-        }
-        
-        .ol-zoom button {
-            background-color: rgba(255,255,255,0.8) !important;
-            color: #333 !important;
-            border-radius: 4px !important;
-            width: 32px !important;
-            height: 32px !important;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
-            cursor: pointer;
+            top: 50px !important;
+            left: 10px !important; 
         }
 
         /* ============================= */
@@ -250,6 +234,7 @@
                 display: none !important;
             }
             
+            /* Ajustes móviles Pantalla Completa y Zoom */
             .ol-full-screen {
                 top: 5px !important; 
                 left: 5px !important; 
@@ -263,15 +248,8 @@
             }
             
             .ol-zoom {
-                left: 45px !important;
-                top: 5px !important;
-            }
-            
-            .ol-zoom button {
-                width: 34px !important;
-                height: 34px !important;
-                background-color: rgba(255,255,255,0.8) !important;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
+                top: 45px !important;
+                left: 5px !important;
             }
         }
     </style>
@@ -451,11 +429,9 @@
     </script>
 </body>
 </html>
-
-
+      
 
      
-
-
-
+        
+    
      
