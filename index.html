@@ -235,7 +235,24 @@ right:50px;
 display:none !important;
 }
 
-
+/* Ajuste específico móvil para el botón FullScreen */
+            .ol-full-screen {
+                top: 5px; /* Más pegado arriba */
+                left: 5px; /* Más pegado a la izquierda */
+            }
+            .ol-full-screen button {
+                width: 34px !important; /* Más grande para táctil */
+                height: 34px !important;
+            }
+            .ol-full-screen button::before {
+                font-size: 18px !important; /* Icono ligeramente más grande */
+            }
+            /* shift zoom controls right if they clash, assuming default placement 10,10. Put FS far left. */
+            .ol-zoom {
+                left: 45px !important;
+                top: 5px !important;
+            }
+        
 }
 
 </style>
