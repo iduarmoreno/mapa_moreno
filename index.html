@@ -1,174 +1,169 @@
-
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<title>Cuartel V - Zona III</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Cuartel V - Zona III</title>
 
-<link rel="stylesheet" href="./resources/ol.css">
-<link rel="stylesheet" href="resources/fontawesome-all.min.css">
-<link href="resources/photon-geocoder-autocomplete.min.css" rel="stylesheet">
-<link rel="stylesheet" href="./resources/ol-layerswitcher.css">
-<link rel="stylesheet" href="./resources/qgis2web.css">
+    <link rel="stylesheet" href="./resources/ol.css">
+    <link rel="stylesheet" href="resources/fontawesome-all.min.css">
+    <link href="resources/photon-geocoder-autocomplete.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./resources/ol-layerswitcher.css">
+    <link rel="stylesheet" href="./resources/qgis2web.css">
 
-<style>
+    <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            background-color: #ffffff;
+        }
 
-html, body, #map {
-width: 100%;
-height: 100%;
-padding: 0;
-margin: 0;
-background-color: #ffffff;
-/* ESCALA DEL MAPA */
-.ol-scale-line {
-    display: block !important; /* Rompemos la invisibilidad */
-    position: absolute !important;
-    bottom: 20px !important; 
-    right: 20px !important;  
-    left: auto !important;   
-    background: rgba(255, 255, 255, 0.8) !important; 
-    padding: 6px !important;
-    border-radius: 4px !important;
-    z-index: 9999 !important; /* Le subimos el nivel para que nada la tape */
-}
+        /* ESCALA DEL MAPA */
+        .ol-scale-line {
+            display: block !important;
+            position: absolute !important;
+            bottom: 20px !important;
+            right: 20px !important;
+            left: auto !important;
+            background: rgba(255, 255, 255, 0.8) !important;
+            padding: 6px !important;
+            border-radius: 4px !important;
+            z-index: 9999 !important;
+        }
 
-.ol-scale-line-inner {
-    border: 2px solid #333 !important;
-    border-top: none !important;
-    color: #333 !important;
-    font-size: 13px !important;
-    font-weight: bold !important;
-    text-align: center !important;
-    padding: 2px 4px !important;
+        .ol-scale-line-inner {
+            border: 2px solid #333 !important;
+            border-top: none !important;
+            color: #333 !important;
+            font-size: 13px !important;
+            font-weight: bold !important;
+            text-align: center !important;
+            padding: 2px 4px !important;
+        }
 
-
-}
-
-/* ... (aquí sigue el resto de tu código, como #titulo-mapa, #logo-institucional, etc.) ... */
-
-/* TITULO */
-
-#titulo-mapa {
-position: absolute;
-top: 20px;
-left: 20px;
-right: 180px;   /* deja espacio para el logo */
-z-index: 1000;
-font-family: Arial, Gadget, sans-serif;
-font-size: 32px;
-color: #000000;
-text-align: center;
-text-shadow: 2px 2px 5px rgba(255,255,255,0.8);
-pointer-events: none;
-}
-
-/* LOGO */
-
-#logo-institucional {
-position: absolute;
-top: 10px;
-right: 10px;
-z-index: 1002;
-height: 50px;
-width: auto;
-pointer-events: none;
-}
-
-/* FLECHA NORTE */
-
-#flecha-norte{
-position:absolute;
-top:75px;
-right:65px;
-width:80px;
-height:80px;
-z-index:999;
-pointer-events:none;
-transition:transform 0.2s linear;
-}
-
-/* LEYENDA */
-
-.layer-switcher {
-margin-top: 90px !important;
-padding-top: 0 !important;
-}
-
-.layer-switcher ul {
-padding-top: 0 !important;
-margin-top: 20px !important;
-}
-
-.layer-switcher ul::before {
-content: "Referencias";
-display: block;
-font-family: Arial, sans-serif;
-font-weight: bold;
-font-size: 25px;
-color: #333;
-text-align: center;
-border-bottom: 2px solid #eee;
-position: relative;
-top: -10px;
-padding: 0 5px 10px 5px;
-margin-bottom: 0px;
-}
-
-/* PIE */
-
-#pie-direccion {
-position: absolute;
-bottom: 20px;
-left: 50%;
-transform: translateX(-50%);
-z-index: 1000;
-font-family: Arial, sans-serif;
-font-size: 20px;
-color: #888888;
-text-align: center;
-text-shadow: 1px 1px 2px rgba(255,255,255,0.6);
-pointer-events: none;
-}
-
-/* CONTROLES */
-
-.ol-control {
-background-color: rgba(255,255,255,.4) !important;
-padding: 2px !important;
-}
-/* ==================================================================== */
-        /* BOTÓN DE PANTALLA COMPLETA (ESTILO Y POSICIÓN)                       */
-        /* ==================================================================== */
-        
-        /* Posición debajo del zoom (asumiendo zoom arriba-izquierda) */
-        .ol-full-screen {
+        /* TITULO */
+        #titulo-mapa {
             position: absolute;
-            top: 10px; /* Alineado con el top del zoom típico */
-            left: 10px; /* Alineado al far-left */
-            z-index: 1004; /* Por encima del mapa */
+            top: 20px;
+            left: 20px;
+            right: 180px;
+            z-index: 1000;
+            font-family: Arial, Gadget, sans-serif;
+            font-size: 32px;
+            color: #000000;
+            text-align: center;
+            text-shadow: 2px 2px 5px rgba(255,255,255,0.8);
+            pointer-events: none;
+        }
+
+        /* LOGO */
+        #logo-institucional {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1002;
+            height: 50px;
+            width: auto;
+            pointer-events: none;
+        }
+
+        /* FLECHA NORTE */
+        #flecha-norte {
+            position: absolute;
+            top: 75px;
+            right: 65px;
+            width: 80px;
+            height: 80px;
+            z-index: 999;
+            pointer-events: none;
+            transition: transform 0.2s linear;
+        }
+
+        /* LEYENDA */
+        .layer-switcher {
+            margin-top: 90px !important;
+            padding-top: 0 !important;
+        }
+
+        .layer-switcher ul {
+            padding-top: 0 !important;
+            margin-top: 20px !important;
+        }
+
+        .layer-switcher ul::before {
+            content: "Referencias";
+            display: block;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            font-size: 25px;
+            color: #333;
+            text-align: center;
+            border-bottom: 2px solid #eee;
+            position: relative;
+            top: -10px;
+            padding: 0 5px 10px 5px;
+            margin-bottom: 0px;
+        }
+
+        /* PIE */
+        #pie-direccion {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            color: #888888;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.6);
+            pointer-events: none;
+        }
+
+        /* ==================================================================== */
+        /* CONTROLES GENERALES (ANULAR ESTILOS DE BARRA SUPERIOR)               */
+        /* ==================================================================== */
+        .ol-control {
+            background: none !important;     
+            border: none !important;         
+            width: auto !important;          
+            height: auto !important;         
+            padding: 0 !important;
+            position: static !important;     
+        }
+
+        /* ==================================================================== */
+        /* BOTÓN DE PANTALLA COMPLETA (ESTILO Y POSICIÓN INDEPENDIENTE)        */
+        /* ==================================================================== */
+        .ol-full-screen {
+            position: absolute !important;
+            top: 10px !important;
+            left: 10px !important;
+            z-index: 1004 !important; 
         }
         
-        /* Estilo del botón para que parezca control del mapa */
         .ol-full-screen button {
-            background-color: rgba(255,255,255,0.7) !important;
+            background-color: rgba(255,255,255,0.8) !important; 
             color: #333 !important;
             border-radius: 4px !important;
             width: 32px !important;
             height: 32px !important;
-            font-size: 0 !important; /* Escondemos el texto nativo FS */
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            font-size: 0 !important; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important; 
             cursor: pointer;
+            display: block !important;
+            margin: 0 !important;
         }
 
-        /* ICONO ESTADO ACHICADO (Flechas hacia afuera -> Entrar FullScreen) */
         .ol-full-screen button::before {
             font-family: 'Font Awesome 5 Free';
             font-weight: 900;
-            content: "\f065"; /* fa-expand */
+            content: "\f065"; 
             font-size: 16px !important;
             display: flex;
             align-items: center;
@@ -176,309 +171,291 @@ padding: 2px !important;
             height: 100%;
         }
 
-        /* ICONO ESTADO AGRANDADO (Flechas hacia adentro -> Salir FullScreen) */
         .ol-full-screen-true button::before {
-            content: "\f066"; /* fa-compress */
+            content: "\f066"; 
         }
-/* ============================= */
-/* AJUSTES SOLO PARA MOVIL */
-/* ============================= */
+        
+        /* ==================================================================== */
+        /* CONTROLES DE ZOOM FLOTANTES                                          */
+        /* ==================================================================== */
+        .ol-zoom {
+            position: absolute !important;
+            top: 10px !important;
+            left: 45px !important; 
+            z-index: 1004 !important;
+        }
+        
+        .ol-zoom button {
+            background-color: rgba(255,255,255,0.8) !important;
+            color: #333 !important;
+            border-radius: 4px !important;
+            width: 32px !important;
+            height: 32px !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
+            cursor: pointer;
+        }
 
-@media screen and (max-width:768px){
+        /* ============================= */
+        /* AJUSTES SOLO PARA MOVIL       */
+        /* ============================= */
+        @media screen and (max-width: 768px) {
+            #logo-institucional {
+                height: 15px;
+                top: 5px;
+                right: 5px;
+            }
 
-#logo-institucional{
-height:15px;
-top:5px;
-right:5px;
-}
+            #titulo-mapa {
+                font-size: 15px;
+                top: 6px;
+                width: 65%;
+                left: 40%;
+                transform: translateX(-40%);
+                line-height: 1.2;
+            }
 
-#titulo-mapa{
-font-size:15px;
-top:6px;
-width:65%;
-left:40%;
-transform:translateX(-40%);
-line-height:1.2;
-}
+            #pie-direccion {
+                font-size: 11px;
+                bottom: 40px;
+                width: 90%;
+            }
 
-#pie-direccion{
-font-size:11px;
-bottom:45px;
-width:90%;
-}
-.ol-scale-line {
-    bottom: 65px !important; /* La sube por encima de las letras de Dirección General */
-    right: 10px !important;  /* La pega un poquito más al borde derecho en pantallas chicas */
-}
-.layer-switcher{
-left:5px !important;
-margin-top:55px !important;
-font-size:12px;
-max-height:60vh;
-overflow-y:auto;
-}
+            .ol-scale-line {
+                bottom: 65px !important;
+                right: 10px !important;
+            }
 
-.ol-control button{
-width:34px;
-height:34px;
-font-size:16px;
-}
+            .layer-switcher {
+                left: 5px !important;
+                margin-top: 55px !important;
+                font-size: 12px;
+                max-height: 60vh;
+                overflow-y: auto;
+            }
 
-#flecha-norte{
-width:50px;
-height:50px;
-top:50px;
-right:50px;
-}
+            .ol-control button {
+                width: 34px !important; 
+                height: 34px !important;
+                font-size: 16px;
+            }
 
-.ol-rotate{
-display:none !important;
-}
+            #flecha-norte {
+                width: 50px;
+                height: 50px;
+                top: 50px;
+                right: 50px;
+            }
 
-/* Ajuste específico móvil para el botón FullScreen */
+            .ol-rotate {
+                display: none !important;
+            }
+            
             .ol-full-screen {
-                top: 5px; /* Más pegado arriba */
-                left: 5px; /* Más pegado a la izquierda */
+                top: 5px !important; 
+                left: 5px !important; 
             }
             .ol-full-screen button {
-                width: 34px !important; /* Más grande para táctil */
+                width: 34px !important; 
                 height: 34px !important;
             }
             .ol-full-screen button::before {
-                font-size: 18px !important; /* Icono ligeramente más grande */
+                font-size: 18px !important; 
             }
-            /* shift zoom controls right if they clash, assuming default placement 10,10. Put FS far left. */
+            
             .ol-zoom {
                 left: 45px !important;
                 top: 5px !important;
             }
-        
-}
-
-</style>
+            
+            .ol-zoom button {
+                width: 34px !important;
+                height: 34px !important;
+                background-color: rgba(255,255,255,0.8) !important;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
-
-<img id="logo-institucional" src="2026logo.png" alt="Logo Moreno IDUAR">
-<img id="flecha-norte" src="flecha.svg" alt="Norte">
-
-
-
-<div id="pie-direccion">
-Dirección General de Proyectos de Hábitat, Vivienda e Integración Urbana
-</div>
-
-<div id="map">
-
-<div id="popup" class="ol-popup">
-<a href="#" id="popup-closer" class="ol-popup-closer"></a>
-<div id="popup-content"></div>
-</div>
-
-</div>
-
-<script src="resources/qgis2web_expressions.js"></script>
-<script src="./resources/functions.js"></script>
-<script src="./resources/ol.js"></script>
-<script src="./resources/ol-layerswitcher.js"></script>
-<script src="resources/photon-geocoder-autocomplete.min.js"></script>
-
-<script src="layers/Reserva_Equipamientos_3.js"></script>
-<script src="layers/LocalidadesMoreno_4.js"></script>
-<script src="layers/BarriosPopulares_5.js"></script>
-<script src="layers/CallesMloreno_6.js"></script>
-<script src="layers/CursodeAgua_7.js"></script>
-<script src="layers/CallesNombradasenHonoraLosDesaparecidos_8.js"></script>
-
-<script src="styles/Reserva_Equipamientos_3_style.js"></script>
-<script src="styles/LocalidadesMoreno_4_style.js"></script>
-<script src="styles/BarriosPopulares_5_style.js"></script>
-<script src="styles/CallesMloreno_6_style.js"></script>
-<script src="styles/CursodeAgua_7_style.js"></script>
-<script src="styles/CallesNombradasenHonoraLosDesaparecidos_8_style.js"></script>
-
-<script src="./layers/layers.js"></script>
-<script src="./resources/Autolinker.min.js"></script>
-<script src="./resources/qgis2web.js"></script>
-
-<script>
-
-/* ROTAR FLECHA NORTE */
-
-window.addEventListener("load",function(){
-
-map.getView().on('change:rotation',function(){
-
-var rotation = map.getView().getRotation();
-var grados = rotation * (180 / Math.PI);
-
-document.getElementById("flecha-norte").style.transform =
-"rotate(" + (-grados) + "deg)";
-
-});
-
-});
-
-/* AJUSTE MOVIL ORIGINAL */
-
-function ajustarMapaMovil(){
-
-if (window.innerWidth <= 768){
-
-var view = map.getView();
-
-view.setZoom(view.getZoom() - 0.7);
-
-var center = view.getCenter();
-center[0] = center[0] - 250;
-view.setCenter(center);
-
-}
-
-}
-
-window.addEventListener("load", ajustarMapaMovil);
-
-
-/* OCULTAR FLECHA NORTE CUANDO SE ABRE LA LEYENDA EN MOVIL */
-
-function controlarFlechaMovil(){
-
-if (window.innerWidth <= 768){
-
-var flecha = document.getElementById("flecha-norte");
-var boton = document.querySelector(".layer-switcher button");
-
-if(!boton) return;
-
-boton.addEventListener("click", function(){
-
-setTimeout(function(){
-
-var panel = document.querySelector(".layer-switcher");
-
-if(panel.classList.contains("shown")){
-flecha.style.display = "none";
-}else{
-flecha.style.display = "block";
-}
-
-},200);
-
-});
-
-}
-
-}
-
-window.addEventListener("load", controlarFlechaMovil);
-/* OCULTAR FLECHA NORTE CUANDO SE ABRE LA LEYENDA EN PC (CLIC + HOVER) */
-
-function controlarFlechaPC(){
-    if (window.innerWidth > 768){
-        var flecha = document.getElementById("flecha-norte");
-        var panel = document.querySelector(".layer-switcher");
-        var boton = document.querySelector(".layer-switcher button");
-
-        if(!panel || !flecha || !boton) return;
-
-        // 1. Ocultar si pasas el mouse por encima
-        panel.addEventListener("mouseenter", function(){
-            flecha.style.display = "none";
-        });
-
-        // 2. Mostrar al quitar el mouse, PERO solo si el panel no está abierto con clic
-        panel.addEventListener("mouseleave", function(){
-            if(!panel.classList.contains("shown")){
-                flecha.style.display = "block";
-            }
-        });
-
-        // 3. Manejar el clic explícito (Igual que tu lógica en móvil)
-        boton.addEventListener("click", function(){
-            setTimeout(function(){
-                if(panel.classList.contains("shown")){
-                    flecha.style.display = "none";
-                }else{
-                    flecha.style.display = "block";
-                }
-            }, 200);
-        });
-    }
-}
-
-window.addEventListener("load", controlarFlechaPC);
-   /* ==================================================================== */
-/* FORZAR LEYENDA CERRADA, ABRIR SOLO CON CLIC Y OCULTAR FLECHA (PC)    */
-/* ==================================================================== */
-
-function configurarLeyendaSoloClic(){
-    var panel = document.querySelector(".layer-switcher");
-    var boton = document.querySelector(".layer-switcher button");
-    var flecha = document.getElementById("flecha-norte"); // Llamamos a la flecha
-
-    if(!panel || !boton || !flecha) return;
-
-    // 1. Obligar a que la leyenda arranque siempre cerrada al cargar la página
-    setTimeout(function() {
-        panel.classList.remove("shown");
-    }, 100);
-
-    // 2. Aplicar la lógica SOLO si es PC (más de 768px)
-    if (window.innerWidth > 768){
+    
+    <div id="map">
         
-        // Función para frenar en seco que el plugin se abra al pasar el mouse
-        var bloquearHoverNativo = function(e){
-            e.stopImmediatePropagation();
-        };
+        <img id="logo-institucional" src="2026logo.png" alt="Logo Moreno IDUAR">
+        <img id="flecha-norte" src="flecha.svg" alt="Norte">
 
-        // Bloqueamos el "hover" nativo del mapa
-        panel.addEventListener("mouseover", bloquearHoverNativo, true);
-        panel.addEventListener("mouseout", bloquearHoverNativo, true);
-        panel.addEventListener("pointerover", bloquearHoverNativo, true);
-        panel.addEventListener("pointerout", bloquearHoverNativo, true);
+        <div id="pie-direccion">
+            Dirección General de Proyectos de Hábitat, Vivienda e Integración Urbana
+        </div>
 
-        // 3. Tomar el control manual del CLIC en el botón
-        boton.addEventListener("click", function(e){
-            e.stopImmediatePropagation(); // Frenamos errores del plugin
-            e.preventDefault();
-            
-            // Abrimos o cerramos la leyenda
-            panel.classList.toggle("shown");
+        <div id="popup" class="ol-popup">
+            <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+            <div id="popup-content"></div>
+        </div>
 
-            // Ocultamos o mostramos la flecha al mismo tiempo
-            if(panel.classList.contains("shown")){
-                flecha.style.display = "none";
-            } else {
-                flecha.style.display = "block";
+    </div>
+
+    <script src="resources/qgis2web_expressions.js"></script>
+    <script src="./resources/functions.js"></script>
+    <script src="./resources/ol.js"></script>
+    <script src="./resources/ol-layerswitcher.js"></script>
+    <script src="resources/photon-geocoder-autocomplete.min.js"></script>
+
+    <script src="layers/Reserva_Equipamientos_3.js"></script>
+    <script src="layers/LocalidadesMoreno_4.js"></script>
+    <script src="layers/BarriosPopulares_5.js"></script>
+    <script src="layers/CallesMloreno_6.js"></script>
+    <script src="layers/CursodeAgua_7.js"></script>
+    <script src="layers/CallesNombradasenHonoraLosDesaparecidos_8.js"></script>
+
+    <script src="styles/Reserva_Equipamientos_3_style.js"></script>
+    <script src="styles/LocalidadesMoreno_4_style.js"></script>
+    <script src="styles/BarriosPopulares_5_style.js"></script>
+    <script src="styles/CallesMloreno_6_style.js"></script>
+    <script src="styles/CursodeAgua_7_style.js"></script>
+    <script src="styles/CallesNombradasenHonoraLosDesaparecidos_8_style.js"></script>
+
+    <script src="./layers/layers.js"></script>
+    <script src="./resources/Autolinker.min.js"></script>
+    <script src="./resources/qgis2web.js"></script>
+
+    <script>
+        /* ROTAR FLECHA NORTE */
+        window.addEventListener("load", function() {
+            if (typeof map !== 'undefined') {
+                map.getView().on('change:rotation', function() {
+                    var rotation = map.getView().getRotation();
+                    var grados = rotation * (180 / Math.PI);
+                    document.getElementById("flecha-norte").style.transform = "rotate(" + (-grados) + "deg)";
+                });
             }
-        }, true);
-    }
-}
+        });
 
-// Ejecutar cuando termine de cargar el mapa
-window.addEventListener("load", configurarLeyendaSoloClic);
-    /* ... (aquí arriba está tu código de la flecha móvil y el de la leyenda para PC) ... */
-
-/* ==================================================================== */
-/* AGREGAR ESCALA MÉTRICA (DESPUÉS DE CARGAR TODO)                      */
-/* ==================================================================== */
-window.addEventListener("load", function() {
-    // Le damos 1 segundo (1000 milisegundos) de margen al mapa
-    setTimeout(function() {
-        if (typeof map !== 'undefined') {
-            map.addControl(new ol.control.ScaleLine({
-                units: 'metric'
-            }));
-            map.addControl(new ol.control.FullScreen());
+        /* AJUSTE MOVIL ORIGINAL */
+        function ajustarMapaMovil() {
+            if (typeof map !== 'undefined' && window.innerWidth <= 768) {
+                var view = map.getView();
+                view.setZoom(view.getZoom() - 0.7);
+                var center = view.getCenter();
+                center[0] = center[0] - 250;
+                view.setCenter(center);
+            }
         }
-    }, 1000);
-});
+        window.addEventListener("load", ajustarMapaMovil);
 
-</script>
+        /* OCULTAR FLECHA NORTE CUANDO SE ABRE LA LEYENDA EN MOVIL */
+        function controlarFlechaMovil() {
+            if (window.innerWidth <= 768) {
+                var flecha = document.getElementById("flecha-norte");
+                var boton = document.querySelector(".layer-switcher button");
+                if (!boton) return;
+                boton.addEventListener("click", function() {
+                    setTimeout(function() {
+                        var panel = document.querySelector(".layer-switcher");
+                        if (panel && panel.classList.contains("shown")) {
+                            flecha.style.display = "none";
+                        } else {
+                            flecha.style.display = "block";
+                        }
+                    }, 200);
+                });
+            }
+        }
+        window.addEventListener("load", controlarFlechaMovil);
+
+        /* OCULTAR FLECHA NORTE CUANDO SE ABRE LA LEYENDA EN PC (CLIC + HOVER) */
+        function controlarFlechaPC() {
+            if (window.innerWidth > 768) {
+                var flecha = document.getElementById("flecha-norte");
+                var panel = document.querySelector(".layer-switcher");
+                var boton = document.querySelector(".layer-switcher button");
+                if (!panel || !flecha || !boton) return;
+
+                panel.addEventListener("mouseenter", function() {
+                    flecha.style.display = "none";
+                });
+
+                panel.addEventListener("mouseleave", function() {
+                    if (!panel.classList.contains("shown")) {
+                        flecha.style.display = "block";
+                    }
+                });
+
+                boton.addEventListener("click", function() {
+                    setTimeout(function() {
+                        if (panel.classList.contains("shown")) {
+                            flecha.style.display = "none";
+                        } else {
+                            flecha.style.display = "block";
+                        }
+                    }, 200);
+                });
+            }
+        }
+        window.addEventListener("load", controlarFlechaPC);
+
+        /* ==================================================================== */
+        /* FORZAR LEYENDA CERRADA, ABRIR SOLO CON CLIC Y OCULTAR FLECHA (PC)    */
+        /* ==================================================================== */
+        function configurarLeyendaSoloClic() {
+            var panel = document.querySelector(".layer-switcher");
+            var boton = document.querySelector(".layer-switcher button");
+            var flecha = document.getElementById("flecha-norte");
+
+            if (!panel || !boton || !flecha) return;
+
+            setTimeout(function() {
+                panel.classList.remove("shown");
+            }, 100);
+
+            if (window.innerWidth > 768) {
+                var bloquearHoverNativo = function(e) {
+                    e.stopImmediatePropagation();
+                };
+
+                panel.addEventListener("mouseover", bloquearHoverNativo, true);
+                panel.addEventListener("mouseout", bloquearHoverNativo, true);
+                panel.addEventListener("pointerover", bloquearHoverNativo, true);
+                panel.addEventListener("pointerout", bloquearHoverNativo, true);
+
+                boton.addEventListener("click", function(e) {
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    panel.classList.toggle("shown");
+                    if (panel.classList.contains("shown")) {
+                        flecha.style.display = "none";
+                    } else {
+                        flecha.style.display = "block";
+                    }
+                }, true);
+            }
+        }
+        window.addEventListener("load", configurarLeyendaSoloClic);
+
+        /* ==================================================================== */
+        /* FUNCIONES DE CARGA FINAL (ESCALA Y PANTALLA COMPLETA)                */
+        /* ==================================================================== */
+        window.addEventListener("load", function() {
+            setTimeout(function() {
+                if (typeof map !== 'undefined') {
+                    // 1. ESCALA MÉTRICA
+                    map.addControl(new ol.control.ScaleLine({
+                        units: 'metric'
+                    }));
+                    
+                    // 2. BOTÓN DE PANTALLA COMPLETA
+                    map.addControl(new ol.control.FullScreen());
+                }
+            }, 1000);
+        });
+    </script>
 </body>
 </html>
 
 
 
+     
+
+
+
+     
